@@ -1,5 +1,12 @@
 import React from 'react';
 import dishImg from '../../assets/images/dish.jpg';
+import pizzaImg from '../../assets/images/pizza.jpg';
+import burgerImg from '../../assets/images/burger.jpg';
+import juiceImg from '../../assets/images/juices.jpg';
+import dessertImg from '../../assets/images/dessert.jpg';
+import cheeseburgerImg from '../../assets/images/Cheeseburger.jpg';
+import margheritaImg from '../../assets/images/Margherita Pizza.jpg';
+import mangoJuiceImg from '../../assets/images/mango-juice.jpg';
 
 const HomePage = () => {
   return (
@@ -17,15 +24,16 @@ const HomePage = () => {
         </div>
       </div>
 
+    
       {/* Categories Section */}
       <section className="py-12">
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">Explore Our Categories</h2>
           <div className="flex flex-wrap justify-center space-x-4">
-            <CategoryCard title="Pizzas" image="/images/pizza.jpg" />
-            <CategoryCard title="Burgers" image="/images/burger.jpg" />
-            <CategoryCard title="Sushi" image="/images/sushi.jpg" />
-            <CategoryCard title="Desserts" image="/images/dessert.jpg" />
+            <CategoryCard title="Pizzas" image={pizzaImg} />
+            <CategoryCard title="Burgers" image={burgerImg} />
+            <CategoryCard title="juices" image={juiceImg} />
+            <CategoryCard title="Desserts" image={dessertImg} />
           </div>
         </div>
       </section>
@@ -35,14 +43,14 @@ const HomePage = () => {
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">Featured Dishes</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <DishCard title="Margherita Pizza" description="Classic Margherita with fresh mozzarella and basil." price="$12.99" image="/images/dish1.jpg" />
-            <DishCard title="Cheeseburger" description="Juicy cheeseburger with cheddar and special sauce." price="$8.99" image="/images/dish2.jpg" />
-            <DishCard title="Salmon Sushi" description="Fresh salmon sushi with a hint of wasabi." price="$15.99" image="/images/dish3.jpg" />
+            <DishCard title="Margherita Pizza" description="Classic Margherita with fresh mozzarella and basil." price="$12.99" image={margheritaImg} />
+            <DishCard title="Cheeseburger" description="Juicy cheeseburger with cheddar and special sauce." price="$8.99" image={cheeseburgerImg} />
+            <DishCard title="Mango Juice" description="Fresh mango juice with a hint of mint." price="$4.99" image={ mangoJuiceImg} />
           </div>
         </div>
       </section>
 
-      {/* Footer */}
+      
       
     </div>
   );
