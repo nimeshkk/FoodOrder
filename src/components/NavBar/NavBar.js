@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage the visibility of the mobile menu
@@ -11,10 +12,11 @@ const NavBar = () => {
 
         {/* Nav Items for Desktop */}
         <div className="hidden md:flex space-x-6">
-          <a href="/" className="text-black hover:text-blue-200">Home</a>
-          <a href="/about" className="text-black hover:text-blue-200">About</a>
-          <a href="/services" className="text-black hover:text-blue-200">Services</a>
-          <a href="/contact" className="text-black hover:text-blue-200">Contact</a>
+          <Link to="/" className="text-black hover:text-green-500">Home</Link>
+          <Link to="/restaurant" className="text-black hover:text-green-500">Restaurant</Link>
+          <Link to="/about" className="text-black hover:text-green-500">About</Link>
+          <Link to="/services" className="text-black hover:text-green-500">Services</Link>
+          <Link to="/contact" className="text-black hover:text-green-500">Contact</Link>
         </div>
 
         {/* Mobile Menu Button */}

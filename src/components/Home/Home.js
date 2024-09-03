@@ -27,16 +27,18 @@ const HomePage = () => {
     
       {/* Categories Section */}
       <section className="py-12">
-        <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-8">Explore Our Categories</h2>
-          <div className="flex flex-wrap justify-center space-x-4">
-            <CategoryCard title="Pizzas" image={pizzaImg} />
-            <CategoryCard title="Burgers" image={burgerImg} />
-            <CategoryCard title="juices" image={juiceImg} />
-            <CategoryCard title="Desserts" image={dessertImg} />
-          </div>
+      <div className="container mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-8">Explore Our Categories</h2>
+        
+        {/* Responsive Flex Grid */}
+        <div className="flex flex-wrap justify-center gap-8">
+          <CategoryCard title="Pizzas" image={pizzaImg} />
+          <CategoryCard title="Burgers" image={burgerImg} />
+          <CategoryCard title="Juices" image={juiceImg} />
+          <CategoryCard title="Desserts" image={dessertImg} />
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Featured Dishes Section */}
       <section className="bg-gray-100 py-12">

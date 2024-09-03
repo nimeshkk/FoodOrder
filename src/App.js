@@ -4,15 +4,22 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from './components/Home/Home';
 import NavBar from './components/NavBar/NavBar';
 import Layout from './components/Layout';
+import Footer from './components/Footer/Footer';
+import About from './components/About/About';
+import RestaurantSection from './components/Restaurant/Restaurant';
+import AddRestaurantForm from './components/addRestaurant/addRestaurant';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<NavBar />} />
-          <Route index element={<HomePage/>} />
-        </Route>
+        <Route path="/" element={<Layout />}/>
+        <Route path="navbar" element={<NavBar />} />
+        <Route path="home" element={<HomePage />} />
+        <Route path="about" element={<About />} />
+        <Route path="footer" element={<Footer />} /> 
+        <Route path="restaurant" element={<RestaurantSection/>} />
+        <Route path="addrestaurant" element={<AddRestaurantForm/>} />
       </Routes>
     </BrowserRouter>
   );
