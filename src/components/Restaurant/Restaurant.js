@@ -1,48 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaPlus } from 'react-icons/fa';
 import NavBar from '../NavBar/NavBar';
 import { Link } from 'react-router-dom';
+import axios from 'axios'; // Import axios
 
 const RestaurantSection = () => {
-  // Sample data for restaurants with additional details
-  const restaurants = [
-    {
-      id: 1,
-      name: "The Spicy Grill",
-      address: "123 Flavor St, Spice Town",
-      phone: "+123 456 7890",
-      email: "contact@thespicygrill.com",
-      description: "A haven for lovers of bold flavors and exotic spices. Enjoy our diverse range of Indian delicacies.",
-      image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2b/00/53/e9/unique-architecture.jpg?w=600&h=400&s=1", // Use actual URL for images
-    },
-    {
-      id: 2,
-      name: "Pasta Palace",
-      address: "456 Noodle Ave, Pasta City",
-      phone: "+987 654 3210",
-      email: "info@pastapalace.com",
-      description: "Experience the taste of authentic Italian pasta made from the finest ingredients and traditional recipes.",
-      image: "https://c.myholidays.com/blog/blog/content/images/2021/10/The-Curry-Leaf.webp",
-    },
-    {
-      id: 3,
-      name: "Sushi Central",
-      address: "789 Sushi Blvd, Tokyo Town",
-      phone: "+123 555 6789",
-      email: "hello@sushicentral.com",
-      description: "A delightful journey through the best of Japanese cuisine, featuring fresh sushi and sashimi.",
-      image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/28/2c/6d/38/beautiful-scenery-of.jpg?w=600&h=400&s=1",
-    },
-    {
-      id: 4,
-      name: "Burger Bistro",
-      address: "101 Burger Lane, Foodie City",
-      phone: "+321 654 9870",
-      email: "burgerbistro@example.com",
-      description: "Serving the juiciest burgers made from locally sourced ingredients in a cozy and casual atmosphere.",
-      image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/45/bc/5c/capital-bar-grill.jpg?w=600&h=-1&s=1",
-    },
-  ];
+  // State to store restaurants data
+  const [restaurants, setRestaurants] = useState([]);
+
+  // Fetch restaurants data when the component mounts
+  useEffect(() => {
+    const fetchRestaurants = async () => {
+      try {
+        const response = await axios.get('http://localhost:8080/api/v1/restaurant/getRestaurant');
+        setRestaurants(response.data);
+      } catch (error) {
+        console.error('Error fetching restaurants data:', error);
+      }
+    };
+
+    fetchRestaurants();
+  }, []);
 
   return (
     <>
@@ -64,7 +42,7 @@ const RestaurantSection = () => {
             {restaurants.map((restaurant) => (
               <div key={restaurant.id} className="bg-white rounded-lg shadow-lg overflow-hidden">
                 <img
-                  src={restaurant.image}
+                  src={restaurant.imageUrl}
                   alt={restaurant.name}
                   className="w-full h-48 object-cover"
                 />
@@ -88,4 +66,3 @@ const RestaurantSection = () => {
 };
 
 export default RestaurantSection;
-

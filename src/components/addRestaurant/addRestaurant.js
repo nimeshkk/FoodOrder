@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import NavBar from '../NavBar/NavBar';
+import axios from 'axios'; // Import axios
 
 const AddRestaurantForm = () => {
   // State to manage form input values
   const [formData, setFormData] = useState({
+    id: '', // Added id field
     name: '',
     address: '',
     phone: '',
@@ -22,29 +24,54 @@ const AddRestaurantForm = () => {
   };
 
   // Handler to manage form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
 
-    // Perform the form submission (e.g., send data to the server)
-    // After submission, you might want to clear the form:
-    setFormData({
-      name: '',
-      address: '',
-      phone: '',
-      email: '',
-      description: '',
-      imageUrl: ''
-    });
+    try {
+      // Send POST request to the API
+      const response = await axios.post('http://localhost:8080/api/v1/restaurant/saveRestaurant', formData);
+      console.log('Response:', response.data);
+
+      // Display success message as a popup alert
+      alert('Restaurant added successfully!');
+
+      // Clear the form after submission
+      setFormData({
+        id: '', // Clear id field
+        name: '',
+        address: '',
+        phone: '',
+        email: '',
+        description: '',
+        imageUrl: ''
+      });
+    } catch (error) {
+      console.error('There was an error submitting the form:', error);
+      // Optionally handle errors here
+    }
   };
 
   return (
     <>
-      <NavBar/>
+      <NavBar />
       <div className="max-w-2xl mx-auto p-2 bg-white rounded-lg shadow-md mt-8">
-        <h2 className="text-2xl font-bold  text-center mt-8">Add Restaurant</h2>
+        <h2 className="text-2xl font-bold text-center mt-8">Add Restaurant</h2>
         <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 ">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div>
+              <label htmlFor="id" className="block text-gray-700 font-bold mb-2">ID</label>
+              <input
+                type="text"
+                id="id"
+                name="id"
+                value={formData.id}
+                onChange={handleChange}
+                className="w-full px-3 py-2 border rounded"
+                required
+              />
+            </div>
+
             <div>
               <label htmlFor="name" className="block text-gray-700 font-bold mb-2">Name</label>
               <input
@@ -136,4 +163,3 @@ const AddRestaurantForm = () => {
 };
 
 export default AddRestaurantForm;
-
