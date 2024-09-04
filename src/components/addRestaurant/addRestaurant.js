@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import NavBar from '../NavBar/NavBar';
-import axios from 'axios'; // Import axios
+import axios from 'axios';
 
 const AddRestaurantForm = () => {
   // State to manage form input values
   const [formData, setFormData] = useState({
-    id: '', // Added id field
+    id: '',
     name: '',
     address: '',
     phone: '',
@@ -36,9 +36,9 @@ const AddRestaurantForm = () => {
       // Display success message as a popup alert
       alert('Restaurant added successfully!');
 
-      // Clear the form after submission
+      
       setFormData({
-        id: '', // Clear id field
+        id: '', 
         name: '',
         address: '',
         phone: '',
@@ -48,7 +48,7 @@ const AddRestaurantForm = () => {
       });
     } catch (error) {
       console.error('There was an error submitting the form:', error);
-      // Optionally handle errors here
+      
     }
   };
 
