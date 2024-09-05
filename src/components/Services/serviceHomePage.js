@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { PlusCircle, Home, CreditCard, Star } from 'lucide-react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 const ServiceCard = ({ icon, title, description, onClick }) => (
   <div 
@@ -16,27 +17,32 @@ const ServiceCard = ({ icon, title, description, onClick }) => (
 
 const Dashboard = () => {
   const [selectedService, setSelectedService] = useState(null);
+  const navigate = useNavigate(); // Initialize navigate function
 
   const services = [
     { 
       icon: <PlusCircle size={32} />, 
       title: "Add New Food", 
-      description: "Expand your menu with new delicious items" 
+      description: "Expand your menu with new delicious items",
+      action: () => navigate("/add-food"), // Add navigation action
     },
     { 
       icon: <Home size={32} />, 
       title: "Add Restaurant", 
-      description: "Register your restaurant to our platform" 
+      description: "Register your restaurant to our platform",
+      action: () => setSelectedService("Add Restaurant") 
     },
     { 
       icon: <CreditCard size={32} />, 
       title: "Payment", 
-      description: "Manage your transactions and earnings" 
+      description: "Manage your transactions and earnings",
+      action: () => setSelectedService("Payment") 
     },
     { 
       icon: <Star size={32} />, 
       title: "Add Review", 
-      description: "Share your dining experience with others" 
+      description: "Share your dining experience with others",
+      action: () => setSelectedService("Add Review") 
     },
   ];
 
@@ -50,7 +56,7 @@ const Dashboard = () => {
           <ServiceCard
             key={index}
             {...service}
-            onClick={() => setSelectedService(service.title)}
+            onClick={service.action} // Use action to handle clicks
           />
         ))}
       </div>

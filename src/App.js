@@ -8,7 +8,8 @@ import Footer from './components/Footer/Footer';
 import About from './components/About/About';
 import RestaurantSection from './components/Restaurant/Restaurant';
 import AddRestaurantForm from './components/addRestaurant/addRestaurant';
-import Dashboard from './components/Services/service';
+import Dashboard from './components/Services/serviceHomePage';
+import FoodEntryForm from './components/Services/addFood';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="services" element= {<Dashboard/>} /> 
         <Route path="restaurant" element={<RestaurantSection/>} />
         <Route path="addrestaurant" element={<AddRestaurantForm/>} />
+        <Route path="add-food" element={<FoodEntryForm />} />
       </Routes>
     </BrowserRouter>
   );
