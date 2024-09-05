@@ -8,6 +8,7 @@ import Footer from './components/Footer/Footer';
 import About from './components/About/About';
 import RestaurantSection from './components/Restaurant/Restaurant';
 import AddRestaurantForm from './components/addRestaurant/addRestaurant';
+import Dashboard from './components/Services/service';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="home" element={<HomePage />} />
         <Route path="about" element={<About />} />
         <Route path="footer" element={<Footer />} /> 
+        <Route path="services" element= {<Dashboard/>} /> 
         <Route path="restaurant" element={<RestaurantSection/>} />
         <Route path="addrestaurant" element={<AddRestaurantForm/>} />
       </Routes>
