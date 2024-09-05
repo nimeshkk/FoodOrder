@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { PlusCircle, Home, CreditCard, Star } from 'lucide-react';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import NavBar from '../NavBar/NavBar';
 
 const ServiceCard = ({ icon, title, description, onClick }) => (
   <div 
@@ -47,7 +48,10 @@ const Dashboard = () => {
   ];
 
   return (
+    
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 p-8">
+      <NavBar />
+      <div className="container mx-auto mt-20">
       <h1 className="text-4xl font-bold text-center mb-12 text-gray-800">
         Food Service Dashboard
       </h1>
@@ -74,6 +78,7 @@ const Dashboard = () => {
           </div>
         </div>
       )}
+      </div>
     </div>
   );
 };
