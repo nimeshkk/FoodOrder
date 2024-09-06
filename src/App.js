@@ -10,6 +10,7 @@ import RestaurantSection from './components/Restaurant/Restaurant';
 import AddRestaurantForm from './components/addRestaurant/addRestaurant';
 import Dashboard from './components/Services/serviceHomePage';
 import FoodEntryForm from './components/Services/addFood';
+import ShoppingCartPage from './components/Services/cart';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="restaurant" element={<RestaurantSection/>} />
         <Route path="addrestaurant" element={<AddRestaurantForm/>} />
         <Route path="add-food" element={<FoodEntryForm />} />
+        <Route path="cart" element={<ShoppingCartPage />} /> 
       </Routes>
     </BrowserRouter>
   );

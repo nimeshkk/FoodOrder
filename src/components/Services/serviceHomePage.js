@@ -37,7 +37,7 @@ const Dashboard = () => {
       icon: <CreditCard size={32} />, 
       title: "Payment", 
       description: "Manage your transactions and earnings",
-      action: () => setSelectedService("Payment") 
+      action: () => navigate("/cart"), 
     },
     { 
       icon: <Star size={32} />, 
