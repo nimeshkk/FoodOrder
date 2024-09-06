@@ -4,6 +4,7 @@ import { Trash2, Plus, Minus, ShoppingCart as ShoppingCartIcon } from 'lucide-re
 import mangoJuiceImage from '../../assets/images/mango-juice.jpg';
 import margheritaPizzaImage from '../../assets/images/Margherita Pizza.jpg';
 
+// Component to render each item in the cart
 const CartItem = ({ item, onUpdateQuantity, onRemove }) => (
   <div className="flex items-center justify-between p-4 border-b">
     <div className="flex items-center space-x-4">
@@ -28,12 +29,15 @@ const CartItem = ({ item, onUpdateQuantity, onRemove }) => (
   </div>
 );
 
+// Main component for the shopping cart page
 const ShoppingCartPage = () => {
+  // State to manage cart items
   const [cartItems, setCartItems] = useState([
     { id: 1, name: "Margherita Pizza", price: 12.99, quantity: 2, image: margheritaPizzaImage },
     { id: 2, name: "Mango Juice", price: 4.99, quantity: 1, image: mangoJuiceImage },
   ]);
 
+  // Function to update the quantity of an item in the cart
   const updateQuantity = (id, newQuantity) => {
     if (newQuantity < 1) return;
     setCartItems(items =>
@@ -43,10 +47,12 @@ const ShoppingCartPage = () => {
     );
   };
 
+  // Function to remove an item from the cart
   const removeItem = (id) => {
     setCartItems(items => items.filter(item => item.id !== id));
   };
 
+  // Calculate the total price of items in the cart
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
