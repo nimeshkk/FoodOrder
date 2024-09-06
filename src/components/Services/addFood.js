@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import NavBar from '../NavBar/NavBar';
 import axios from 'axios';
-import DishTable from './dishList';
+import DishTable from './dishtable';
 
 const FoodEntryForm = () => {
   const [food, setFood] = useState({
