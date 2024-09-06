@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import NavBar from '../NavBar/NavBar';
+import axios from 'axios';
+import DishTable from './dishList';
 
 const FoodEntryForm = () => {
   const [food, setFood] = useState({
@@ -8,21 +11,69 @@ const FoodEntryForm = () => {
     image: '',
     description: ''
   });
+  const [errors, setErrors] = useState({});
+  const [refreshTable, setRefreshTable] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState(null);
+
+  const validateForm = () => {
+    let newErrors = {};
+    if (!food.id.trim()) newErrors.id = "ID is required";
+    if (!food.name.trim()) newErrors.name = "Name is required";
+    if (!food.price.trim()) newErrors.price = "Price is required";
+    else if (isNaN(parseFloat(food.price))) newErrors.price = "Price must be a number";
+    if (!food.image.trim()) newErrors.image = "Image URL is required";
+    if (!food.description.trim()) newErrors.description = "Description is required";
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFood(prevFood => ({ ...prevFood, [name]: value }));
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prevErrors => ({ ...prevErrors, [name]: '' }));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Food item submitted:', food);
-    // Here you would typically send the data to your backend
+    if (validateForm()) {
+      const apiUrl = 'http://localhost:8080/api/v/dish/addDish';
+      const formData = { ...food };
+    
+      axios.post(apiUrl, formData)
+        .then(response => {
+          console.log('Food item added:', response.data);
+          // Clear form fields
+          setFood({
+            id: '',
+            name: '',
+            price: '',
+            image: '',
+            description: ''
+          });
+          // Trigger table refresh
+          setRefreshTable(prev => !prev);
+          // Set success message
+          setSubmitMessage({ type: 'success', text: 'Food item added successfully!' });
+          // Clear message after 5 seconds
+          setTimeout(() => setSubmitMessage(null), 5000);
+        })
+        .catch(error => {
+          console.error('Error adding food item:', error);
+          // Set error message
+          setSubmitMessage({ type: 'error', text: 'Failed to add food item. Please try again.' });
+          // Clear message after 5 seconds
+          setTimeout(() => setSubmitMessage(null), 5000);
+        });
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-100 to-purple-100 flex items-center justify-center p-4">
-      <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-xl p-8 max-w-3xl w-full space-y-6">
+    <div className="min-h-screen bg-gradient-to-r from-blue-100 to-purple-100 flex flex-col items-center p-4">
+      <NavBar />
+      <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow-xl p-4 max-w-4xl w-full space-y-6 mt-12">
         <div className="flex items-center space-x-4 mb-6">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-orange-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M17 8h1a4 4 0 1 1 0 8h-1"></path>
@@ -34,6 +85,12 @@ const FoodEntryForm = () => {
           <h2 className="text-3xl font-bold text-orange-700">Add Delicious Dish</h2>
         </div>
 
+        {submitMessage && (
+          <div className={`p-4 rounded-md ${submitMessage.type === 'success' ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+            {submitMessage.text}
+          </div>
+        )}
+
         <div className="grid grid-cols-2 gap-10">
           <div>
             <label htmlFor="id" className="block text-sm font-medium text-gray-700">Food ID</label>
@@ -44,8 +101,9 @@ const FoodEntryForm = () => {
               value={food.id}
               onChange={handleChange}
               placeholder="Enter unique ID"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:outline-none focus:border-orange-300 focus:ring focus:ring-orange-200 focus:ring-opacity-50 p-2 border-2"
+              className={`mt-1 block w-full rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50 p-2 border-2 ${errors.id ? 'border-red-500 focus:border-red-500 focus:ring-red-200' : 'border-gray-300 focus:border-orange-300 focus:ring-orange-200'}`}
             />
+            {errors.id && <p className="mt-1 text-sm text-red-500">{errors.id}</p>}
           </div>
           <div>
             <label htmlFor="name" className="block text-sm font-medium text-gray-700">Food Name</label>
@@ -56,8 +114,9 @@ const FoodEntryForm = () => {
               value={food.name}
               onChange={handleChange}
               placeholder="Enter food name"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:outline-none focus:border-orange-300 focus:ring focus:ring-orange-200 focus:ring-opacity-50 p-2 border-2"
+              className={`mt-1 block w-full rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50 p-2 border-2 ${errors.name ? 'border-red-500 focus:border-red-500 focus:ring-red-200' : 'border-gray-300 focus:border-orange-300 focus:ring-orange-200'}`}
             />
+            {errors.name && <p className="mt-1 text-sm text-red-500">{errors.name}</p>}
           </div>
           <div>
             <label htmlFor="price" className="block text-sm font-medium text-gray-700">Price</label>
@@ -68,8 +127,9 @@ const FoodEntryForm = () => {
               value={food.price}
               onChange={handleChange}
               placeholder="Enter price"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:outline-none focus:border-orange-300 focus:ring focus:ring-orange-200 focus:ring-opacity-50 p-2 border-2"
+              className={`mt-1 block w-full rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50 p-2 border-2 ${errors.price ? 'border-red-500 focus:border-red-500 focus:ring-red-200' : 'border-gray-300 focus:border-orange-300 focus:ring-orange-200'}`}
             />
+            {errors.price && <p className="mt-1 text-sm text-red-500">{errors.price}</p>}
           </div>
           <div>
             <label htmlFor="image" className="block text-sm font-medium text-gray-700">Image URL</label>
@@ -80,8 +140,9 @@ const FoodEntryForm = () => {
               value={food.image}
               onChange={handleChange}
               placeholder="Enter image URL"
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:outline-none focus:border-orange-300 focus:ring focus:ring-orange-200 focus:ring-opacity-50 p-2 border-2"
+              className={`mt-1 block w-full rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50 p-2 border-2 ${errors.image ? 'border-red-500 focus:border-red-500 focus:ring-red-200' : 'border-gray-300 focus:border-orange-300 focus:ring-orange-200'}`}
             />
+            {errors.image && <p className="mt-1 text-sm text-red-500">{errors.image}</p>}
           </div>
         </div>
 
@@ -94,8 +155,9 @@ const FoodEntryForm = () => {
             onChange={handleChange}
             placeholder="Describe your delicious dish..."
             rows={4}
-            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:outline-none focus:border-orange-300 focus:ring focus:ring-orange-200 focus:ring-opacity-50 p-2 border-2"
+            className={`mt-1 block w-full rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50 p-2 border-2 ${errors.description ? 'border-red-500 focus:border-red-500 focus:ring-red-200' : 'border-gray-300 focus:border-orange-300 focus:ring-orange-200'}`}
           ></textarea>
+          {errors.description && <p className="mt-1 text-sm text-red-500">{errors.description}</p>}
         </div>
 
         <button
@@ -110,6 +172,7 @@ const FoodEntryForm = () => {
           Add Food Item
         </button>
       </form>
+      <DishTable refreshTrigger={refreshTable} />
     </div>
   );
 };
