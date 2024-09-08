@@ -31,7 +31,7 @@ const Dashboard = () => {
       icon: <Home size={32} />,
       title: "Add Restaurant",
       description: "Register your restaurant to our platform",
-      action: () => setSelectedService("Add Restaurant"),
+      action: () => navigate("/restaurant"),
     },
     {
       icon: <CreditCard size={32} />,

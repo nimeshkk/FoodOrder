@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import NavBar from '../NavBar/NavBar';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useParams, useNavigate } from 'react-router-dom';
+import NavBar from '../NavBar/NavBar';
 
-const AddRestaurantForm = () => {
+const EditRestaurantForm = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     id: '',
     name: '',
@@ -14,7 +16,26 @@ const AddRestaurantForm = () => {
     imageUrl: ''
   });
 
-  const navigate = useNavigate(); // Initialize useNavigate
+  useEffect(() => {
+    const fetchRestaurant = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8080/api/v1/restaurant/getRestaurant/${id}`);
+        setFormData({
+          id: response.data.id,
+          name: response.data.name,
+          address: response.data.address,
+          phone: response.data.phone,
+          email: response.data.email,
+          description: response.data.description,
+          imageUrl: response.data.imageUrl
+        });
+      } catch (error) {
+        console.error('Error fetching restaurant data:', error);
+      }
+    };
+
+    fetchRestaurant();
+  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,41 +47,29 @@ const AddRestaurantForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+
+    console.log('Submitting form data:', { ...formData }); // Log form data
 
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/restaurant/saveRestaurant', formData);
-      console.log('Response:', response.data);
-
-      alert('Restaurant added successfully!');
-      
-      // Navigate to the restaurant page
-      navigate('/restaurant');
-
-      setFormData({
-        id: '',
-        name: '',
-        address: '',
-        phone: '',
-        email: '',
-        description: '',
-        imageUrl: ''
-      });
-      
+      const response = await axios.put(`http://localhost:8080/api/v1/restaurant/updateRestaurant/${formData.id}`, { ...formData });
+      console.log('Update response:', response); // Log the response
+      alert('Restaurant updated successfully!');
+      navigate('/restaurant'); // Redirect to the main page or the previous page
     } catch (error) {
-      console.error('There was an error submitting the form:', error);
+      console.error('Error updating restaurant:', error);
+      alert(`Failed to update restaurant. ${error.response?.data?.message || 'Please try again later.'}`);
     }
   };
 
   return (
     <>
       <NavBar />
-      <div className=" mt-8 min-h-screen bg-gradient-to-r from-blue-100 to-purple-100 flex justify-center items-center">
-        <form 
-          onSubmit={handleSubmit} 
-          className="bg-white rounded-lg shadow-md p-4 max-w-2xl w-full space-y-4"
+      <div className=" mt-8 min-h-screen bg-gradient-to-r from-blue-100 to-purple-100 flex justify-center items-center ">
+        <form
+          onSubmit={handleSubmit}
+          className="bg-white rounded-lg shadow-md p-4 max-w-2xl w-full space-y-4 "
         >
-          <h2 className="text-2xl font-bold text-orange-700 text-center mb-4">Add Restaurant</h2>
+          <h2 className="text-2xl font-bold text-orange-700 text-center mb-4">Edit Restaurant</h2>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
@@ -71,7 +80,7 @@ const AddRestaurantForm = () => {
                 name="id"
                 value={formData.id}
                 onChange={handleChange}
-                placeholder="Enter unique ID"
+                placeholder="Enter restaurant ID"
                 className="mt-1 block w-full rounded-md p-2 border border-gray-300 focus:border-orange-300 focus:ring focus:ring-orange-200"
                 required
               />
@@ -136,8 +145,8 @@ const AddRestaurantForm = () => {
                 value={formData.description}
                 onChange={handleChange}
                 placeholder="Enter description"
-                rows={2}
-                className="mt-1 block w-full rounded-md p-2 border border-gray-300 focus:border-orange-300 focus:ring focus:ring-orange-200"
+                rows={4}
+                className="mt-1 block w-full rounded-md p-1 border border-gray-300 focus:border-orange-300 focus:ring focus:ring-orange-200"
                 required
               ></textarea>
             </div>
@@ -159,7 +168,7 @@ const AddRestaurantForm = () => {
             type="submit"
             className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
           >
-            Add Restaurant
+            Save Changes
           </button>
         </form>
       </div>
@@ -167,4 +176,4 @@ const AddRestaurantForm = () => {
   );
 };
 
-export default AddRestaurantForm;
+export default EditRestaurantForm;

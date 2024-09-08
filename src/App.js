@@ -11,6 +11,7 @@ import Dashboard from "./components/Services/serviceHomePage";
 import FoodEntryForm from "./components/Services/addFood";
 import ShoppingCartPage from "./components/Services/cart";
 import AddReviewForm from "./components/Services/addReview";
+import EditRestaurantForm from "./components/editRestaurant/editRestaurant";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="add-food" element={<FoodEntryForm />} />
         <Route path="cart" element={<ShoppingCartPage />} />
         <Route path="add-review" element={<AddReviewForm />} />
+        <Route path="/editrestaurant/:id" element={<EditRestaurantForm />} />
       </Routes>
     </BrowserRouter>
   );
