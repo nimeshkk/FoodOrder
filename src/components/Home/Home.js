@@ -18,7 +18,7 @@ const HomePage = () => {
         <div className="bg-black bg-opacity-50 h-full flex flex-col justify-center items-center text-center text-white">
           <h1 className="text-5xl font-bold mb-4">Welcome to Foodie Haven</h1>
           <p className="text-xl mb-8">Order delicious meals online and get them delivered to your doorsteps!</p>
-          <a href="/menu" className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-full text-lg">
+          <a href="/restaurant" className="bg-red-500 hover:bg-red-600 text-white px-6 py-3 rounded-full text-lg">
             View Menu
           </a>
         </div>

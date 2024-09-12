@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../../assets/images/logo2.png';
 
 const NavBar = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage the visibility of the mobile menu
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
 
   return (
-    <nav className="bg-white p-4 fixed top-0 left-0 w-full z-50"> {/* Make the navbar fixed */}
+    <nav className="bg-white p-4 fixed top-0 left-0 w-full z-50"> 
       <div className="container mx-auto flex justify-between items-center">
         {/* Logo */}
-        <a href="/" className="text-black text-xl font-bold">Logo</a>
+        <Link to="/">
+          <img src={logo} alt="Logo" className="w-7 h-8" /> 
+        </Link>
 
         {/* Nav Items for Desktop */}
         <div className="hidden md:flex space-x-6">
@@ -23,7 +26,7 @@ const NavBar = () => {
         <div className="md:hidden">
           <button
             className="text-black focus:outline-none"
-            onClick={() => setIsMenuOpen(!isMenuOpen)} // Toggle the mobile menu
+            onClick={() => setIsMenuOpen(!isMenuOpen)} 
           >
             <svg
               className="w-6 h-6"
@@ -47,10 +50,11 @@ const NavBar = () => {
       {isMenuOpen && (
         <div className="md:hidden">
           <div className="flex flex-col space-y-4 mt-4">
-            <a href="/" className="text-black hover:text-blue-200 p-2">Home</a>
-            <a href="/about" className="text-black hover:text-blue-200 p-2">About</a>
-            <a href="/services" className="text-black hover:text-blue-200 p-2">Services</a>
-            <a href="/contact" className="text-black hover:text-blue-200 p-2">Contact</a>
+          <Link to="/" className="text-black hover:text-green-500">Home</Link>
+          <Link to="/restaurant" className="text-black hover:text-green-500">Restaurant</Link>
+          <Link to="/about" className="text-black hover:text-green-500">About</Link>
+          <Link to="/services" className="text-black hover:text-green-500">Services</Link>
+          <Link to="/contact" className="text-black hover:text-green-500">Contact</Link>
           </div>
         </div>
       )}
