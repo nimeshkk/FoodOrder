@@ -7,6 +7,8 @@ import dessertImg from '../../assets/images/dessert.jpg';
 import cheeseburgerImg from '../../assets/images/Cheeseburger.jpg';
 import margheritaImg from '../../assets/images/Margherita Pizza.jpg';
 import mangoJuiceImg from '../../assets/images/mango-juice.jpg';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const HomePage = () => {
   return (
@@ -45,9 +47,9 @@ const HomePage = () => {
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold text-center mb-8">Featured Dishes</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <DishCard title="Margherita Pizza" description="Classic Margherita with fresh mozzarella and basil." price="$12.99" image={margheritaImg} />
-            <DishCard title="Cheeseburger" description="Juicy cheeseburger with cheddar and special sauce." price="$8.99" image={cheeseburgerImg} />
-            <DishCard title="Mango Juice" description="Fresh mango juice with a hint of mint." price="$4.99" image={ mangoJuiceImg} />
+            <DishCard title="Margherita Pizza" description="Classic Margherita with fresh mozzarella and basil." price="LKR 999.99" image={margheritaImg} />
+            <DishCard title="Cheeseburger" description="Juicy cheeseburger with cheddar and special sauce." price="LKR 599.99" image={cheeseburgerImg} />
+            <DishCard title="Mango Juice" description="Fresh mango juice with a hint of mint." price="LKR 199.99" image={ mangoJuiceImg} />
           </div>
         </div>
       </section>
@@ -64,18 +66,32 @@ const CategoryCard = ({ title, image }) => (
   </div>
 );
 
-const DishCard = ({ title, description, price, image }) => (
-  <div className="bg-white rounded-lg shadow-md overflow-hidden">
-    <img src={image} alt={title} className="w-full h-48 object-cover" />
-    <div className="p-4">
-      <h3 className="text-xl font-bold mb-2">{title}</h3>
-      <p className="text-gray-700 mb-2">{description}</p>
-      <div className="flex justify-between items-center">
-        <span className="text-lg font-bold">{price}</span>
-        <button className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Order Now</button>
+const DishCard = ({ title, description, price, image }) => {
+  const handleAddToCart = () => {
+    toast.success(`${title} has been added to your cart!`);
+  };
+
+  return (
+    <>
+    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+      <img src={image} alt={title} className="w-full h-48 object-cover" />
+      <div className="p-4">
+        <h3 className="text-xl font-bold mb-2">{title}</h3>
+        <p className="text-gray-700 mb-2">{description}</p>
+        <div className="flex justify-between items-center">
+          <span className="text-lg font-bold">{price}</span>
+          <button
+            onClick={handleAddToCart}
+            className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+          >
+            Add to Cart
+          </button>
+        </div>
+        <ToastContainer />
       </div>
     </div>
-  </div>
-);
+    </>
+  );
+};
 
 export default HomePage;
