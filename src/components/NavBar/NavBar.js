@@ -16,9 +16,9 @@ const NavBar = () => {
         {/* Nav Items for Desktop */}
         <div className="hidden md:flex space-x-6 items-center">
           <Link to="/" className="text-black hover:text-green-500">Home</Link>
-          <Link to="/restaurant" className="text-black hover:text-green-500">Restaurant</Link>
+          {/* <Link to="/restaurant" className="text-black hover:text-green-500">Restaurant</Link> */}
           <Link to="/about" className="text-black hover:text-green-500">About</Link>
-          <Link to="/services" className="text-black hover:text-green-500">Services</Link>
+          {/* <Link to="/services" className="text-black hover:text-green-500">Services</Link> */}
           <Link to="/signin" className="text-black hover:text-green-500">Sign In</Link>
           <Link to="/contact" className="text-black hover:text-green-500">Contact</Link>
 
@@ -70,9 +70,9 @@ const NavBar = () => {
         <div className="md:hidden">
           <div className="flex flex-col space-y-4 mt-4">
             <Link to="/" className="text-black hover:text-green-500">Home</Link>
-            <Link to="/restaurant" className="text-black hover:text-green-500">Restaurant</Link>
+            {/* <Link to="/restaurant" className="text-black hover:text-green-500">Restaurant</Link> */}
             <Link to="/about" className="text-black hover:text-green-500">About</Link>
-            <Link to="/services" className="text-black hover:text-green-500">Services</Link>
+            {/* <Link to="/services" className="text-black hover:text-green-500">Services</Link> */}
             <Link to="/contact" className="text-black hover:text-green-500">Contact</Link>
             <Link to="/cart" className="text-black hover:text-green-500">Cart</Link>
           </div>

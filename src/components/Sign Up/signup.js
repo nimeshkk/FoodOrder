@@ -43,18 +43,22 @@ const Signup = () => {
 
   return (
     <div className="relative h-screen flex items-center justify-center">
-      {/* Background image with opacity */}
-      <div className="absolute inset-0 bg-cover bg-center z-0"
+      {/* Background image */}
+      <div className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: `url(${dishImg})`,
-          opacity: 0.5, // Adjust opacity as needed
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
         }}
-      ></div>
-      
+      >
+        {/* Black overlay with opacity */}
+        <div className="absolute inset-0 bg-black opacity-50"></div>
+      </div>
+
       {/* Signup form container */}
       <div className="relative z-10 bg-white rounded shadow-lg w-3/5 flex">
         {/* Left side: Solid Color */}
-        <div className="w-2/5 bg-orange-500 flex items-center justify-center text-white p-10 rounded-l">
+        <div className="w-2/5 bg-orange-700 flex items-center justify-center text-white p-10 rounded-l">
           <div>
             <h2 className="text-3xl font-bold mb-4">Welcome to Our Platform!</h2>
             <p className="text-lg">Create an account to enjoy our services.</p>

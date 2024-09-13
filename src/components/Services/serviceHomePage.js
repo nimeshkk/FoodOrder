@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { PlusCircle, Home, CreditCard, Star } from "lucide-react";
+import { PlusCircle, Home, CreditCard, Star, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import NavBar from "../NavBar/NavBar";
 
@@ -47,39 +47,53 @@ const Dashboard = () => {
     },
   ];
 
+  const handleLogout = () => {
+    // Implement any logout logic if needed
+    navigate("/"); // Navigate to home page
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 p-8">
       <NavBar />
-      <div className="container mx-auto mt-20">
-        <h1 className="text-4xl font-bold text-center mb-12 text-gray-800">
-          Food Service Dashboard
-        </h1>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {services.map((service, index) => (
-            <ServiceCard
-              key={index}
-              {...service}
-              onClick={service.action} // Use action to handle clicks
-            />
-          ))}
-        </div>
-        {selectedService && (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-            <div className="bg-white p-8 rounded-lg max-w-md">
-              <h2 className="text-2xl font-semibold mb-4">{selectedService}</h2>
-              <p className="mb-4">
-                You've selected the {selectedService} service. This is where you
-                would implement the functionality for this service.
-              </p>
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                onClick={() => setSelectedService(null)}
-              >
-                Close
-              </button>
-            </div>
+      <div className="relative">
+        <button
+          onClick={handleLogout}
+          className="absolute top-4 right-4 bg-red-600 text-white px-4 py-2 rounded flex items-center hover:bg-gray-700"
+        >
+          <LogOut size={20} className="mr-2" />
+          Logout
+        </button>
+        <div className="container mx-auto mt-20">
+          <h1 className="text-4xl font-bold text-center mb-12 text-gray-800">
+            Food Service Dashboard
+          </h1>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {services.map((service, index) => (
+              <ServiceCard
+                key={index}
+                {...service}
+                onClick={service.action} // Use action to handle clicks
+              />
+            ))}
           </div>
-        )}
+          {selectedService && (
+            <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+              <div className="bg-white p-8 rounded-lg max-w-md">
+                <h2 className="text-2xl font-semibold mb-4">{selectedService}</h2>
+                <p className="mb-4">
+                  You've selected the {selectedService} service. This is where you
+                  would implement the functionality for this service.
+                </p>
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+                  onClick={() => setSelectedService(null)}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

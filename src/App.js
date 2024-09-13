@@ -14,6 +14,7 @@ import ReviewList from "./components/Services/addReview";
 import EditRestaurantForm from "./components/editRestaurant/editRestaurant";
 import Signup from "./components/Sign Up/signup";
 import Signin from "./components/Sign In/Signin";
+import ContactUs from "./components/contact/contact";
 
 function App() {
   return (
