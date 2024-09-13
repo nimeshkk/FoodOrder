@@ -12,7 +12,7 @@ const DishTable = ({ refreshTrigger }) => {
 
   const fetchDishes = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/v/dish/getDish');
+      const response = await axios.get('http://localhost:8083/api/v/dish/getDish');
       setDishes(response.data);
     } catch (error) {
       console.error('Error fetching dishes:', error);
@@ -27,7 +27,7 @@ const DishTable = ({ refreshTrigger }) => {
   const handleDelete = async (id) => {
     try {
       const dishToDelete = dishes.find((dish) => dish.id === id);
-      await axios.delete(`http://localhost:8080/api/v/dish/deleteDish`, {
+      await axios.delete(`http://localhost:8083/api/v/dish/deleteDish`, {
         data: dishToDelete,
       });
       fetchDishes(); // Refresh the dish list
@@ -38,7 +38,7 @@ const DishTable = ({ refreshTrigger }) => {
 
   const handleUpdateDish = async () => {
     try {
-      await axios.put('http://localhost:8080/api/v/dish/updateDish', editingDish);
+      await axios.put('http://localhost:8083/api/v/dish/updateDish', editingDish);
       setIsEditModalOpen(false);
       fetchDishes(); // Refresh the dish list
     } catch (error) {
