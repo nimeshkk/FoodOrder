@@ -12,7 +12,8 @@ import FoodEntryForm from "./components/Services/addFood";
 import ShoppingCartPage from "./components/Services/cart";
 import ReviewList from "./components/Services/addReview";
 import EditRestaurantForm from "./components/editRestaurant/editRestaurant";
-import ContactUs from "./components/contact/contact";
+import Signup from "./components/Sign Up/signup";
+import Signin from "./components/Sign In/Signin";
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
         <Route path="contact" element={<ContactUs />} />
         <Route path="add-review" element={<ReviewList />} />
         <Route path="/editrestaurant/:id" element={<EditRestaurantForm />} />
+        <Route path="signup" element={<Signup />} />
+        <Route path="signin" element={<Signin />} />
       </Routes>
     </BrowserRouter>
   );
