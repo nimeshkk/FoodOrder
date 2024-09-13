@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import NavBar from '../NavBar/NavBar';
 import { Trash2, Plus, Minus, ShoppingCart as ShoppingCartIcon } from 'lucide-react';
+import CheckoutPage from './CheckoutPage';
 
 import mangoJuiceImage from '../../assets/images/mango-juice.jpg';
 import margheritaPizzaImage from '../../assets/images/Margherita Pizza.jpg';
+import cheeseburgerImage from '../../assets/images/Cheeseburger.jpg';
 
 // Component to render each item in the cart
 const CartItem = ({ item, onUpdateQuantity, onRemove }) => (
@@ -11,7 +14,7 @@ const CartItem = ({ item, onUpdateQuantity, onRemove }) => (
       <img src={item.image} alt={item.name} className="w-16 h-16 object-cover rounded" />
       <div>
         <h3 className="font-semibold">{item.name}</h3>
-        <p className="text-gray-500">${item.price.toFixed(2)}</p>
+        <p className="text-gray-500">LKR {item.price.toFixed(2)}</p>
       </div>
     </div>
     <div className="flex items-center space-x-2">
@@ -33,9 +36,11 @@ const CartItem = ({ item, onUpdateQuantity, onRemove }) => (
 const ShoppingCartPage = () => {
   // State to manage cart items
   const [cartItems, setCartItems] = useState([
-    { id: 1, name: "Margherita Pizza", price: 12.99, quantity: 2, image: margheritaPizzaImage },
-    { id: 2, name: "Mango Juice", price: 4.99, quantity: 1, image: mangoJuiceImage },
+    { id: 1, name: "Margherita Pizza", price: 999.99, quantity: 1, image: margheritaPizzaImage },
+    { id: 2, name: "Cheeseburger", price: 599.99, quantity: 1, image: cheeseburgerImage },
+    { id: 3, name: "Mango Juice", price: 199.99, quantity: 1, image: mangoJuiceImage },
   ]);
+  const [showCheckout, setShowCheckout] = useState(false);
 
   // Function to update the quantity of an item in the cart
   const updateQuantity = (id, newQuantity) => {
@@ -52,45 +57,63 @@ const ShoppingCartPage = () => {
     setCartItems(items => items.filter(item => item.id !== id));
   };
 
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
   // Calculate the total price of items in the cart
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
+  const handleSuccessfulCheckout = () => {
+    clearCart();
+    setShowCheckout(false);
+  };
 
-  
   return (
-    <div className="min-h-screen bg-gradient-to-r from-blue-100 to-purple-100 flex items-center justify-center p-4">
-      <div className="bg-white rounded-lg shadow-xl p-8 max-w-3xl w-full space-y-6">
+    <div className="min-h-screen bg-gradient-to-r from-blue-100 to-purple-100 flex flex-col items-center p-4">
+      <NavBar />
+      <div className="bg-white rounded-lg shadow-xl p-8 max-w-3xl w-full space-y-6 mt-20">
+      {!showCheckout ? (
+          <>
         <div className="flex items-center space-x-4 mb-6">
           <ShoppingCartIcon size={32} className="text-orange-500" />
           <h2 className="text-3xl font-bold text-orange-700">Your Cart</h2>
         </div>
+            {cartItems.length === 0 ? (
+              <p className="text-center text-gray-500">Your cart is empty</p>
+            ) : (
+              <>
+                {cartItems.map(item => (
+                  <CartItem
+                    key={item.id}
+                    item={item}
+                    onUpdateQuantity={updateQuantity}
+                    onRemove={removeItem}
+                  />
+                ))}
 
-        {cartItems.length === 0 ? (
-          <p className="text-center text-gray-500">Your cart is empty</p>
-        ) : (
-          <>
-            {cartItems.map(item => (
-              <CartItem
-                key={item.id}
-                item={item}
-                onUpdateQuantity={updateQuantity}
-                onRemove={removeItem}
-              />
-            ))}
+                <div className="mt-6 pt-6 border-t">
+                  <div className="flex justify-between items-center">
+                    <span className="text-xl font-semibold">Total:</span>
+                    <span className="text-2xl font-bold text-orange-600">LKR {total.toFixed(2)}</span>
+                  </div>
+                </div>
 
-            <div className="mt-6 pt-6 border-t">
-              <div className="flex justify-between items-center">
-                <span className="text-xl font-semibold">Total:</span>
-                <span className="text-2xl font-bold text-orange-600">${total.toFixed(2)}</span>
-              </div>
-            </div>
-
-            <button
-              className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline flex items-center justify-center"
-            >
-              Proceed to Checkout
-            </button>
+                <button
+                  onClick={() => setShowCheckout(true)}
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-4 rounded focus:outline-none focus:shadow-outline flex items-center justify-center"
+                >
+                  Proceed to Checkout
+                </button>
+              </>
+            )}
           </>
+        ) : (
+          <CheckoutPage
+            total={total}
+            onBackToCart={() => setShowCheckout(false)}
+            onSuccessfulCheckout={handleSuccessfulCheckout}
+          />
         )}
       </div>
     </div>

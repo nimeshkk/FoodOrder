@@ -39,10 +39,17 @@ const FoodEntryForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      const apiUrl = 'http://localhost:8080/api/v/dish/addDish';
+      const apiUrl = 'http://localhost:8083/api/v/dish/addDish';
       const formData = { ...food };
-    
-      axios.post(apiUrl, formData)
+
+      // Log the form data being sent for debugging
+      console.log('Submitting form data:', formData);
+
+      axios.post(apiUrl, formData, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
         .then(response => {
           console.log('Food item added:', response.data);
           // Clear form fields
@@ -61,7 +68,16 @@ const FoodEntryForm = () => {
           setTimeout(() => setSubmitMessage(null), 5000);
         })
         .catch(error => {
-          console.error('Error adding food item:', error);
+          if (error.response) {
+            // Server responded with a status other than 2xx
+            console.error('Error response:', error.response.data);
+          } else if (error.request) {
+            // Request was made but no response was received
+            console.error('No response received:', error.request);
+          } else {
+            // Something happened in setting up the request
+            console.error('Error setting up request:', error.message);
+          }
           // Set error message
           setSubmitMessage({ type: 'error', text: 'Failed to add food item. Please try again.' });
           // Clear message after 5 seconds
@@ -162,17 +178,13 @@ const FoodEntryForm = () => {
 
         <button
           type="submit"
-          className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center justify-center"
+          className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-4 focus:ring-orange-300"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="8" x2="12" y2="16"></line>
-            <line x1="8" y1="12" x2="16" y2="12"></line>
-          </svg>
-          Add Food Item
+          Add Dish
         </button>
       </form>
-      <DishTable refreshTrigger={refreshTable} />
+
+      <DishTable refresh={refreshTable} />
     </div>
   );
 };

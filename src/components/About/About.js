@@ -1,10 +1,13 @@
 import React from 'react';
 import aboutImage from '../../assets/images/Margherita Pizza.jpg';
+import NavBar from '../NavBar/NavBar';
 
 const About = () => {
   return (
-    <section className="py-12 bg-gray-100">
-    <h2 className="text-4xl font-bold text-gray-800 mb-4 text-center ">About Us</h2> {/* Centered for small screens, left-aligned for medium and up */}
+    <>
+    <NavBar/>
+    <section className="py-12 bg-gray-100 mt-7">
+    <h2 className="text-4xl font-bold text-gray-800 mb-4 text-center ">About Us</h2> 
       <div className="container mx-auto px-4">
         
         <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -32,6 +35,7 @@ const About = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 

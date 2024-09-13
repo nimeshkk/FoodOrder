@@ -29,6 +29,7 @@ function App() {
         <Route path="addrestaurant" element={<AddRestaurantForm />} />
         <Route path="add-food" element={<FoodEntryForm />} />
         <Route path="cart" element={<ShoppingCartPage />} />
+        <Route path="contact" element={<ContactUs />} />
         <Route path="add-review" element={<ReviewList />} />
         <Route path="/editrestaurant/:id" element={<EditRestaurantForm />} />
         <Route path="signup" element={<Signup />} />
