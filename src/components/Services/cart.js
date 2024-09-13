@@ -56,7 +56,7 @@ const ShoppingCartPage = () => {
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
 
-  // Retun function
+  
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-100 to-purple-100 flex items-center justify-center p-4">
       <div className="bg-white rounded-lg shadow-xl p-8 max-w-3xl w-full space-y-6">

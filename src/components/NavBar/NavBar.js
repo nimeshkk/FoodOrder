@@ -19,6 +19,7 @@ const NavBar = () => {
           <Link to="/restaurant" className="text-black hover:text-green-500">Restaurant</Link>
           <Link to="/about" className="text-black hover:text-green-500">About</Link>
           <Link to="/services" className="text-black hover:text-green-500">Services</Link>
+          <Link to="/signin" className="text-black hover:text-green-500">Sign In</Link>
           <Link to="/contact" className="text-black hover:text-green-500">Contact</Link>
         </div>
 
@@ -54,6 +55,7 @@ const NavBar = () => {
           <Link to="/restaurant" className="text-black hover:text-green-500">Restaurant</Link>
           <Link to="/about" className="text-black hover:text-green-500">About</Link>
           <Link to="/services" className="text-black hover:text-green-500">Services</Link>
+          <Link to="/contact" className="text-black hover:text-green-500">Contact</Link>
           <Link to="/contact" className="text-black hover:text-green-500">Contact</Link>
           </div>
         </div>
