@@ -39,7 +39,7 @@ const FoodEntryForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validateForm()) {
-      const apiUrl = 'http://localhost:8080/api/v/dish/addDish';
+      const apiUrl = 'http://localhost:8083/api/v/dish/addDish';
       const formData = { ...food };
     
       axios.post(apiUrl, formData)
